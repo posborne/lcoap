@@ -1,0 +1,7 @@
+/luarocks
+/lua
+/lua_modules
+/.luarocks
+*.out
+*.log
+/.vscode

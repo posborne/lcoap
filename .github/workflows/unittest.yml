@@ -1,0 +1,32 @@
+name: lua unit tests
+
+on: [push, pull_request]
+
+jobs:
+  unittest:
+    strategy:
+      fail-fast: false
+      matrix:
+        luaVersion: ["5.4", "5.3"] # no luajit or older lua support for now
+    runs-on: ubuntu-20.04
+    steps:
+      - name: checkout
+        uses: actions/checkout@v2
+
+      # https://github.com/leafo/gh-actions-lua/blob/master/README.md#full-example
+      - name: Setup `lua`
+        uses: leafo/gh-actions-lua@v8
+        with:
+          luaVersion: ${{ matrix.luaVersion }}
+      
+      - name: Setup `luarocks`
+        uses: leafo/gh-actions-luarocks@v4
+      
+      - name: build
+        run: |
+          luarocks install busted
+          luarocks make
+      
+      - name: test
+        run: |
+          busted -o utfTerminal
