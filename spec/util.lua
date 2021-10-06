@@ -3,7 +3,7 @@ local util = {}
 function util.lpad(s, width, char)
     char = char or " "
     if #s < width then
-        return string.rep(" ", width - #s) .. s
+        return string.rep(char, width - #s) .. s
     else
         return s
     end
@@ -17,7 +17,7 @@ function util.hexstr(bstr)
     local buf = ""
     for i = 1, #hexbytes do
         if (i - 1) % 4 == 0 then
-            buf = buf .. "\n" .. lpad(string.format("%d", i - 1), 4) .. " |"
+            buf = buf .. "\n" .. util.lpad(string.format("%d", i - 1), 4) .. " |"
         end
         buf = buf .. string.format(" %02X", hexbytes[i])
     end

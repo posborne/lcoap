@@ -237,7 +237,8 @@ local function parse_option(data, prev_option_id)
     -- build the full set of options and find payload
     -- through the power of recursion
     local options = {option}
-    local tail_options, payload, err = parse_option(data:sub(idx), option_id)
+    local tail_options, payload
+    tail_options, payload, err = parse_option(data:sub(idx), option_id)
     if not tail_options then
         return nil, nil, err
     end
@@ -252,7 +253,7 @@ function Message.parse(datagram)
     if #datagram < 4 then
         return nil, "Insufficient Length for Header"
     end
-    
+
     -- parse header
     local b0, code, message_id = string.unpack(">BBH", datagram:sub(1, 4))
     local ver = b0 >> 6 -- bits 6,7
@@ -268,7 +269,7 @@ function Message.parse(datagram)
     -- parse token if present
     local token = nil
     if tkl > 0 then
-        token = datagram:sub(5, 5 + tkl - 1) 
+        token = datagram:sub(5, 5 + tkl - 1)
     end
 
     local options, payload, err = parse_option(datagram:sub(5 + tkl), 0)

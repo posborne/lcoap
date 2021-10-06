@@ -22,19 +22,22 @@ function client.get(url, options)
     local port = parsed.port or 5683
     local udp = socket.udp()
     udp:settimeout(timeout)
-    local ok, err = udp:setpeername(parsed.host, port)
+    local ok
+    ok, err = udp:setpeername(parsed.host, port)
     if not ok then
         return nil, "Failed to set udp peer name: " .. err
     end
 
     local tx = Message.new_get(parsed.path)
     udp:send(tx:pack())
-    local rx_dgram, err = udp:receive()
+    local rx_dgram
+    rx_dgram, err = udp:receive()
     if not rx_dgram then
-        return nil, "No response received: " .. timeout
+        return nil, "No response received: " .. err
     end
 
-    local rx, err = Message.parse(rx_dgram)
+    local rx
+    rx, err = Message.parse(rx_dgram)
     if not rx then
         return nil, "Failed to parse dgram: " .. err
     end

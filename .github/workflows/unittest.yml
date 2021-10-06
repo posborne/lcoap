@@ -18,15 +18,19 @@ jobs:
         uses: leafo/gh-actions-lua@v8
         with:
           luaVersion: ${{ matrix.luaVersion }}
-      
+
       - name: Setup `luarocks`
         uses: leafo/gh-actions-luarocks@v4
-      
+
       - name: build
         run: |
           luarocks install busted
+          luarocks install luacheck
           luarocks make
-      
+
       - name: test
         run: |
           busted -o utfTerminal
+
+      - name: luacheck
+        run: luacheck --codes .

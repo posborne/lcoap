@@ -30,8 +30,8 @@ end
 
 local EmptyTransformer = {}
 EmptyTransformer.__index = EmptyTransformer
-function EmptyTransformer.pack(value) return "" end
-function EmptyTransformer.parse(value) return "" end
+function EmptyTransformer.pack(_value) return "" end
+function EmptyTransformer.parse(_value) return "" end
 
 local KNOWN_OPTIONS = {
     ["IF_MATCH"] = {

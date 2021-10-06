@@ -75,7 +75,7 @@ describe("CoAP Message Parsing", function()
     -- Payload: Payload Content-Format: text/plain; charset=utf-8, Length: 5
     it("Should be able to decode a response message", function()
         local datagram = "\x60\x45\xc4\x43\xc2\x00\x00\xff\x30\x2e\x30\x35\x0a"
-        local m, err = Message.parse(datagram)
+        local m, _err = Message.parse(datagram)
         assert.equal(m.type, consts.TYPES.ACKNOWLEDGEMENT)
         assert.equal(m.code, consts.CODES.RESPONSE.CONTENT)
         assert.equal(m.message_id, 50243)
