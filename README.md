@@ -1,6 +1,6 @@
 # `lcoap` Pure Lua CoAP Library
 
-[![Actions Status][actions-shield][actions-url]
+[![Actions Status](https://github.com/posborne/lcoap/workflows/lua%20unit%20tests/badge.svg)](https://github.com/posborne/lcoap/actions)
 
 ## About The Project
 
@@ -45,8 +45,3 @@ are welcome as well!
 
 Distributed under the MIT License. See [`LICENSE`](LICENSE) for
 more information.
-
-<!-- MARKDOWN LINKS & IMAGES -->
-<!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
-[actions-shield](https://github.com/posborne/lcoap/workflows/unittest/badge.svg)
-[actions-url](https://github.com/posborne/lcoap/actions)
