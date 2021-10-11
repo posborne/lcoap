@@ -52,7 +52,8 @@ consts.CONTENT_FORMATS = {
     ["XML"] = 41, -- application/xml
     ["OCTET_STREAM"] = 42, -- application/octet-stream
     ["EXI"] = 47, -- application/exi
-    ["JSON"] = 50 -- application/json
+    ["JSON"] = 50, -- application/json
+    ["CBOR"] = 60 -- application/cbor (https://datatracker.ietf.org/doc/html/rfc7049#section-7.4)
 }
 
 return consts
