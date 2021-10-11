@@ -21,7 +21,7 @@ Message.__tostring = function(self)
     local buf = string.format("CoAP Message: id=%d, type=%d, code=%d...",
                               self.message_id, self.type, self.code)
     for i, option in ipairs(self.options) do
-        buf = buf .. "\n\tOption " .. i .. ": " .. option
+        buf = buf .. "\n\tOption " .. i .. ": " .. tostring(option)
     end
     buf = buf .. "\n\tPayload: '" .. self.payload .. "'"
     return buf
@@ -68,6 +68,35 @@ function Message.new_put(path, payload, ext)
         code = consts.CODES.REQUEST.PUT,
         options = options,
         payload = payload,
+    })
+end
+
+function Message.new_post(path, payload, ext)
+    ext = ext or {}
+    local options = {} or ext.options
+    local type = consts.TYPES.CONFIRMABLE
+    local message_id = ext.message_id or randuint(2)
+    extract_uri_paths(options, path)
+    return Message.new({
+        type = type,
+        message_id = message_id,
+        code = consts.CODES.REQUEST.POST,
+        options = options,
+        payload = payload,
+    })
+end
+
+function Message.new_delete(path, ext)
+    ext = ext or {}
+    local options = {} or ext.options
+    local type = consts.TYPES.CONFIRMABLE
+    local message_id = ext.message_id or randuint(2)
+    extract_uri_paths(options, path)
+    return Message.new({
+        type = type,
+        message_id = message_id,
+        code = consts.CODES.REQUEST.DELETE,
+        options = options,
     })
 end
 
